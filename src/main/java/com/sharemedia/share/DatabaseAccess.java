@@ -14,8 +14,7 @@ public class DatabaseAccess {
     public static String RETRIEVE_USER_BY_ID = "select * from Client where client_id = ?";
 
     public static String RETRIEVE_ALL_MEDIA_ITEMS = """
-        select M.media_id, M.name, M.description, M.city, M.author, M.year_date, M.client_id, MI.category_id from MediaItem M
-                  inner join MediaItemCategories MI on M.media_id = MI.media_id
+        select M.media_id, M.name, M.description, M.city, M.author, M.year_date, M.client_id, M.category_id from MediaItem M
     """;
 
     public static String RETRIEVE_MEDIA_ITEM_BY_ID = "select * from MediaItem where media_id = ?";
@@ -51,14 +50,13 @@ public class DatabaseAccess {
     public static String RETRIEVE_ALL_ITEMS_WITH_KEYWORD = """
             select * from MediaItem M
                 where M.name like ?
-    
     """;
 
     public static String ADD_USER = "insert into Client values (?, ?, ?)";
 
-    public static String ADD_MEDIA_ITEM = "insert into MediaItem values (?, ?, ?, ?, ?, ?, ?)";
+    public static String ADD_MEDIA_ITEM = "insert into MediaItem values (?, ?, ?, ?, ?, ?, ?, ?)";
 
-    public static String ADD_COMMENT = "insert into Comment values (?, ?, ?, ?)";
+    public static String ADD_COMMENT = "insert into Comments values (?, ?, ?, ?, ?)";
 
     public static Connection getConnection() throws SQLException {
         SQLiteDataSource ds = new SQLiteDataSource();

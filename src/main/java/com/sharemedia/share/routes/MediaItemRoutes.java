@@ -3,6 +3,7 @@ package com.sharemedia.share.routes;
 import com.sharemedia.share.controllers.CommentController;
 import com.sharemedia.share.controllers.MediaItemController;
 import com.sharemedia.share.models.Comment;
+import com.sharemedia.share.models.ItemCategory;
 import com.sharemedia.share.models.MediaItem;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
@@ -41,21 +42,38 @@ public class MediaItemRoutes {
     @Path("/by/{userID}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllMediaItemsFromUser(@PathParam("userID") int userID) {
-        return Response.ok().build();
+        Optional<List<MediaItem>> mediaItems = MediaItemController.getMediaItemsFromUser(userID);
+        return mediaItems.isPresent() ? Response.ok(mediaItems).build() : Response.serverError().build();
     }
 
     @GET
     @Path("/from/{city}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllMediaItemsFromCity(@PathParam("city") String city) {
-        return Response.ok().build();
+        Optional<List<MediaItem>> mediaItems = MediaItemController.getMediaItemsFromCity(city);
+        return mediaItems.isPresent() ? Response.ok(mediaItems).build() : Response.serverError().build();
+    }
+
+    @GET
+    @Path("/search/{key}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllMediaItemsBySearch(@PathParam("key") String search) {
+        Optional<List<MediaItem>> mediaItems = MediaItemController.getMediaItemsBySearch(search);
+        return mediaItems.isPresent() ? Response.ok(mediaItems).build() : Response.serverError().build();
     }
 
     @GET
     @Path("/of/{type}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllMediaItemsOfType(@PathParam("type") String type) {
-        return Response.ok().build();
+        try {
+            int categoryID = ItemCategory.valueOf(type.toUpperCase()).getId();
+            Optional<List<MediaItem>> mediaItems = MediaItemController.getMediaItemsOfCategory(categoryID);
+            return mediaItems.isPresent() ? Response.ok(mediaItems.get()).build() : Response.serverError().build();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        }
+        return Response.noContent().build();
     }
 
     @GET
@@ -71,6 +89,7 @@ public class MediaItemRoutes {
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Path("/{id}/comments")
     public Response addComment(@PathParam("id") int mediaID, Comment comment) {
-        return Response.ok(comment).build();
+        boolean done = CommentController.addComment(comment, mediaID);
+        return done ? Response.ok(comment).build() : Response.serverError().build();
     }
 }

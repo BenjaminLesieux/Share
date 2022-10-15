@@ -25,6 +25,7 @@ public class MediaItemController {
             preparedStatement.setString(5, mediaItem.getAuthor());
             preparedStatement.setInt(6, mediaItem.getYear());
             preparedStatement.setInt(7, mediaItem.getUserID());
+            preparedStatement.setInt(8, mediaItem.getCategoryID());
 
             preparedStatement.executeUpdate();
 
@@ -69,6 +70,20 @@ public class MediaItemController {
         return Optional.empty();
     }
 
+    public static Optional<List<MediaItem>> getMediaItemsBySearch(String search) {
+        try (Connection connection = DatabaseAccess.getConnection();
+             PreparedStatement statement = connection.prepareStatement(DatabaseAccess.RETRIEVE_ALL_ITEMS_WITH_KEYWORD)) {
+
+            statement.setString(1, search);
+
+            List<MediaItem> mediaItems = extractFromResultSet(statement);
+            return !mediaItems.isEmpty() ? Optional.of(mediaItems) : Optional.empty();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return Optional.empty();
+    }
+
     public static Optional<List<MediaItem>> getMediaItemsOfCategory(int categoryID) {
         try (Connection connection = DatabaseAccess.getConnection();
              PreparedStatement statement = connection.prepareStatement(DatabaseAccess.RETRIEVE_ALL_ITEMS_BY_CATEGORY)) {
@@ -77,7 +92,6 @@ public class MediaItemController {
             var resultSet = statement.executeQuery();
 
             List<MediaItem> mediaItems = extractFromResultSet(statement);
-
             return Optional.of(mediaItems);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -94,6 +108,23 @@ public class MediaItemController {
             var resultSet = statement.executeQuery();
 
             List<MediaItem> mediaItems = extractFromResultSet(statement);
+            return Optional.of(mediaItems);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return Optional.empty();
+    }
+
+    public static Optional<List<MediaItem>> getMediaItemsFromUser(int userID) {
+        try (Connection connection = DatabaseAccess.getConnection();
+             PreparedStatement statement = connection.prepareStatement(DatabaseAccess.RETRIEVE_ALL_ITEMS_FROM_USER)) {
+
+            statement.setInt(1, userID);
+            var resultSet = statement.executeQuery();
+
+            List<MediaItem> mediaItems = extractFromResultSet(statement);
+
             return Optional.of(mediaItems);
         } catch (SQLException e) {
             e.printStackTrace();

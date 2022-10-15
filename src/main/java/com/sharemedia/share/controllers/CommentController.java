@@ -25,7 +25,7 @@ public class CommentController {
             statement.setString(4, comment.getContent());
             statement.setDouble(5, comment.getRating());
 
-            statement.executeQuery();
+            statement.executeUpdate();
 
             return true;
 
