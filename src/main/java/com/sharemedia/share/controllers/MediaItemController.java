@@ -4,6 +4,7 @@ import com.sharemedia.share.DatabaseAccess;
 import com.sharemedia.share.models.Comment;
 import com.sharemedia.share.models.ItemCategory;
 import com.sharemedia.share.models.MediaItem;
+import org.glassfish.hk2.utilities.reflection.Logger;
 
 import javax.print.attribute.standard.Media;
 import java.sql.*;
@@ -37,6 +38,43 @@ public class MediaItemController {
 
         return false;
     }
+
+    public static boolean removeMediaItem(int mediaID, int userID) {
+        Optional<List<MediaItem>> mediaItems = getAllMediaItems();
+
+        if (mediaItems.isPresent()) {
+            for (MediaItem media : mediaItems.get()) {
+                if (media.getMediaID() == mediaID) {
+                    if (media.getUserID() != userID) return false;
+                }
+            }
+        }
+
+        try (Connection connection = DatabaseAccess.getConnection();
+             PreparedStatement statement = connection.prepareStatement(DatabaseAccess.REMOVE_COMMENTS_OF_MEDIA_ITEM)) {
+
+            statement.setInt(1, mediaID);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        try (Connection connection = DatabaseAccess.getConnection();
+             PreparedStatement statement = connection.prepareStatement(DatabaseAccess.REMOVE_MEDIA_ITEM)) {
+
+            statement.setInt(1, mediaID);
+            statement.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
+    }
+
 
     public static Optional<List<MediaItem>> getAllMediaItems() {
         try (Connection connection = DatabaseAccess.getConnection();
@@ -73,7 +111,7 @@ public class MediaItemController {
             statement.setString(1, search);
 
             List<MediaItem> mediaItems = extractFromResultSet(statement);
-            return !mediaItems.isEmpty() ? Optional.of(mediaItems) : Optional.empty();
+            return Optional.of(mediaItems);
         } catch (SQLException e) {
             e.printStackTrace();
         }

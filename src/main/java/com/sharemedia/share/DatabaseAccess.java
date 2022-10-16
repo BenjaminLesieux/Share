@@ -21,8 +21,7 @@ public class DatabaseAccess {
 
     public static String RETRIEVE_ALL_COMMENTS_FROM_MEDIA = """
             select C.comments_id, C.client_id, C.media_id, C.content, C.rating from Comments C
-                  inner join MediaItem MI on MI.media_id = C.media_id
-                  where MI.media_id = ?
+                  where C.media_id = ?
     """;
 
     public static String RETRIEVE_ALL_COMMENTS_FROM_USER = """
@@ -55,6 +54,10 @@ public class DatabaseAccess {
     public static String ADD_USER = "insert into Client values (?, ?, ?, ?)";
 
     public static String ADD_MEDIA_ITEM = "insert into MediaItem values (?, ?, ?, ?, ?, ?, ?, ?)";
+
+    public static String REMOVE_MEDIA_ITEM = "delete from MediaItem where media_id = ?";
+
+    public static String REMOVE_COMMENTS_OF_MEDIA_ITEM = "delete from Comments where media_id = ?";
 
     public static String ADD_COMMENT = "insert into Comments values (?, ?, ?, ?, ?)";
 

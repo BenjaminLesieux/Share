@@ -9,19 +9,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a7bb89ed-d67d-4edc-8f88-729ce16afd77" name="Changes" comment="First commit">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sharemedia/share/auth/AuthFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sharemedia/share/auth/AuthRequired.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/sharemedia/share/routes/AuthRoutes.java" afterDir="false" />
+    <list default="true" id="a7bb89ed-d67d-4edc-8f88-729ce16afd77" name="Changes" comment="Auth Finished">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sharemedia/share/CorsFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sharemedia/share/auth/Credentials.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/sharemedia/share/auth/TokenDecoder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/artifacts/Share_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/Share_war_exploded.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sharemedia/share/DatabaseAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sharemedia/share/DatabaseAccess.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sharemedia/share/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sharemedia/share/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sharemedia/share/HelloResource.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sharemedia/share/controllers/MediaItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sharemedia/share/controllers/MediaItemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sharemedia/share/controllers/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sharemedia/share/controllers/UserController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/sharemedia/share/models/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sharemedia/share/models/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/sharemedia/share/routes/AuthRoutes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sharemedia/share/routes/AuthRoutes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sharemedia/share/routes/MediaItemRoutes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sharemedia/share/routes/MediaItemRoutes.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/sharemedia/share/routes/UserRoutes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/sharemedia/share/routes/UserRoutes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/index.jsp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/share_database" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/share_database" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -244,7 +246,8 @@
       <workItem from="1665689131310" duration="556000" />
       <workItem from="1665749748378" duration="11215000" />
       <workItem from="1665831814543" duration="3015000" />
-      <workItem from="1665841831162" duration="9544000" />
+      <workItem from="1665841831162" duration="22573000" />
+      <workItem from="1665933946039" duration="6462000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <created>1665832423850</created>
@@ -260,7 +263,14 @@
       <option name="project" value="LOCAL" />
       <updated>1665842378024</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Auth Finished">
+      <created>1665910470493</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1665910470493</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,7 +289,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="First commit" />
+    <MESSAGE value="Auth Finished" />
+    <option name="LAST_COMMIT_MESSAGE" value="Auth Finished" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
