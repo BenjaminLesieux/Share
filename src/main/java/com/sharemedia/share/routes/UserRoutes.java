@@ -1,5 +1,6 @@
 package com.sharemedia.share.routes;
 
+import com.sharemedia.share.auth.AuthRequired;
 import com.sharemedia.share.controllers.UserController;
 import com.sharemedia.share.models.User;
 import jakarta.ws.rs.*;
@@ -14,6 +15,7 @@ public class UserRoutes {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @AuthRequired
     public Response getUsers() {
         Optional<List<User>> users = UserController.getUsers();
         return users.isPresent() ? Response.ok(users, MediaType.APPLICATION_JSON).build() : Response.serverError().build();
@@ -22,15 +24,16 @@ public class UserRoutes {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @AuthRequired
     public Response getUser(@PathParam("id") int id) {
         Optional<User> user = UserController.getUser(id);
         return user.isPresent() ? Response.ok(user.get(), MediaType.APPLICATION_JSON).build() : Response.serverError().build();
     }
 
-    @POST
+/*    @POST
     @Produces(MediaType.TEXT_PLAIN)
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     public Response addUser(User user) {
         return UserController.addUser(user) ? Response.ok(user.toString() + " was added", MediaType.TEXT_PLAIN).build() : Response.serverError().build();
-    }
+    }*/
 }

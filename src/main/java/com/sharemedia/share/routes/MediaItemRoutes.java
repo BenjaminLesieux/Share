@@ -1,5 +1,6 @@
 package com.sharemedia.share.routes;
 
+import com.sharemedia.share.auth.AuthRequired;
 import com.sharemedia.share.controllers.CommentController;
 import com.sharemedia.share.controllers.MediaItemController;
 import com.sharemedia.share.models.Comment;
@@ -18,6 +19,7 @@ public class MediaItemRoutes {
     @POST
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Produces(MediaType.APPLICATION_JSON)
+    @AuthRequired
     public Response addMediaItem(MediaItem item) {
         return MediaItemController.addMediaItem(item) ? Response.ok(item).build() : Response.serverError().build();
     }
@@ -25,7 +27,6 @@ public class MediaItemRoutes {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAllMediaItems() {
-
         Optional<List<MediaItem>> mediaItems = MediaItemController.getAllMediaItems();
         return mediaItems.isPresent() ? Response.ok(mediaItems.get()).build() : Response.serverError().build();
     }
@@ -88,6 +89,7 @@ public class MediaItemRoutes {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
     @Path("/{id}/comments")
+    @AuthRequired
     public Response addComment(@PathParam("id") int mediaID, Comment comment) {
         boolean done = CommentController.addComment(comment, mediaID);
         return done ? Response.ok(comment).build() : Response.serverError().build();

@@ -52,7 +52,7 @@ public class DatabaseAccess {
                 where M.name like ?
     """;
 
-    public static String ADD_USER = "insert into Client values (?, ?, ?)";
+    public static String ADD_USER = "insert into Client values (?, ?, ?, ?)";
 
     public static String ADD_MEDIA_ITEM = "insert into MediaItem values (?, ?, ?, ?, ?, ?, ?, ?)";
 

@@ -39,18 +39,14 @@ public class MediaItemController {
     }
 
     public static Optional<List<MediaItem>> getAllMediaItems() {
-
         try (Connection connection = DatabaseAccess.getConnection();
              PreparedStatement statement = connection.prepareStatement(DatabaseAccess.RETRIEVE_ALL_MEDIA_ITEMS)) {
 
             var mediaItems = extractFromResultSet(statement);
-
             return Optional.of(mediaItems);
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return Optional.empty();
     }
 
